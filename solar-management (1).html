@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar Management — Sunshine Coast</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C97E;
+    --gold-dark: #8B6914;
+    --black: #0A0A0A;
+    --black-mid: #141414;
+    --black-soft: #1E1E1E;
+    --white: #F5F3EE;
+    --white-dim: #B0A898;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-logo span {
+    color: var(--white);
+    font-weight: 300;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--white-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 4rem 4rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative;
+    width: 100%;
+    animation: fadeUp 1s ease both;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    justify-content: center;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--white-dim);
+    line-height: 1.7;
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.9rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    justify-content: center;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  .section-sub {
+    color: var(--white-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  /* ABOUT */
+  .about {
+    background: var(--black-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .about-point {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    background: rgba(201,168,76,0.03);
+    transition: border-color 0.3s;
+  }
+
+  .about-point:hover { border-color: var(--gold); }
+
+  .about-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  .about-point-text h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    color: var(--white);
+  }
+
+  .about-point-text p {
+    font-size: 0.85rem;
+    color: var(--white-dim);
+    line-height: 1.6;
+  }
+
+  /* SERVICES */
+  .services { max-width: 1200px; margin: 0 auto; }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .service-card {
+    background: var(--black);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover { background: var(--black-soft); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  .service-card:hover .service-num { color: rgba(201,168,76,0.25); }
+
+  .service-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    color: var(--white);
+  }
+
+  .service-card p {
+    font-size: 0.85rem;
+    color: var(--white-dim);
+    line-height: 1.6;
+  }
+
+  /* INSPECTION FORMS */
+  .forms-section {
+    background: var(--black-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .forms-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .forms-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .forms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .form-card {
+    background: var(--black);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+  }
+
+  .form-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-card .form-desc {
+    font-size: 0.83rem;
+    color: var(--white-dim);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    margin-bottom: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--black-soft);
+    border: 1px solid rgba(201,168,76,0.15);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(176,168,152,0.4);
+  }
+
+  .form-group select option {
+    background: var(--black-soft);
+    color: var(--white);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  /* RESULTS */
+  .results-section {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .result-card {
+    background: var(--black-mid);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .result-img {
+    height: 180px;
+    background: linear-gradient(135deg, var(--black-soft), var(--black-mid));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-img::before {
+    content: '☀';
+    position: absolute;
+    font-size: 4rem;
+    opacity: 0.05;
+  }
+
+  .result-info {
+    padding: 1.2rem;
+  }
+
+  .result-info h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .result-info p {
+    font-size: 0.82rem;
+    color: var(--white-dim);
+    line-height: 1.5;
+  }
+
+  /* REVIEWS */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .review-card {
+    background: var(--black-mid);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .review-stars {
+    color: var(--gold);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .review-text {
+    font-size: 0.88rem;
+    color: var(--white-dim);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .review-avatar {
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black);
+    flex-shrink: 0;
+  }
+
+  .review-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .review-loc {
+    font-size: 0.75rem;
+    color: var(--white-dim);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--black-mid);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+
+  .contact-item-text label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-item-text p {
+    font-size: 0.9rem;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .contact-item-text a {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-item-text a:hover { color: var(--gold); }
+
+  .service-area-bar {
+    margin-top: 2rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    background: rgba(201,168,76,0.03);
+  }
+
+  .service-area-bar label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .service-area-bar p {
+    font-size: 0.88rem;
+    color: var(--white-dim);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--white-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    color: var(--white-dim);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* DIVIDER */
+  .gold-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1.5rem 0;
+  }
+
+  /* SUCCESS MSG */
+  .success-msg {
+    display: none;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--gold);
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-top: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .forms-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .contact-container { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .hero-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Solar<span>Management</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#book" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Sunshine Coast Solar Specialists</div>
+    <h1>Your Solar System,<br><em>Optimised.</em></h1>
+    <p class="hero-sub">We manage, maintain, and maximise the performance of your existing solar system. Cleaning, monitoring, upgrades, and repairs — all handled by local experts.</p>
+    <div class="hero-btns">
+      <a href="#book" class="btn-primary">Book an Inspection</a>
+      <a href="#quote" class="btn-outline">Get a Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Systems Managed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-left fade-up">
+      <div class="section-tag">Who We Are</div>
+      <h2>Solar Management<br><em>Done Right</em></h2>
+      <div class="gold-divider"></div>
+      <p class="section-sub">Most installers walk away after the job. We stay. Solar Management is a Sunshine Coast company dedicated to the long-term performance of your solar investment — from Rainbow Beach to Brisbane.</p>
+      <br>
+      <p class="section-sub">We also partner with solar installers to manage and maintain their customers' systems after installation, so nothing falls through the cracks.</p>
+    </div>
+    <div class="about-right fade-up">
+      <div class="about-point">
+        <div class="about-icon">🔍</div>
+        <div class="about-point-text">
+          <h4>Remote Monitoring</h4>
+          <p>We keep an eye on your inverter 24/7 so you're always generating at peak performance.</p>
+        </div>
+      </div>
+      <div class="about-point">
+        <div class="about-icon">⚡</div>
+        <div class="about-point-text">
+          <h4>Electrical Expertise</h4>
+          <p>Licensed electricians handle rewiring, fault-finding, and all compliance work.</p>
+        </div>
+      </div>
+      <div class="about-point">
+        <div class="about-icon">🤝</div>
+        <div class="about-point-text">
+          <h4>Installer Partnerships</h4>
+          <p>We partner with local solar companies to provide ongoing care for their customers.</p>
+        </div>
+      </div>
+      <div class="about-point">
+        <div class="about-icon">📍</div>
+        <div class="about-point-text">
+          <h4>Local & Reliable</h4>
+          <p>Based on the Sunshine Coast, servicing Rainbow Beach to Brisbane.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services" style="max-width:1200px;margin:0 auto;">
+    <div class="services-header fade-up">
+      <div>
+        <div class="section-tag">What We Do</div>
+        <h2>Our <em>Services</em></h2>
+      </div>
+      <p class="section-sub" style="max-width:320px;">Everything your solar system needs to perform at its best, year after year.</p>
+    </div>
+    <div class="services-grid fade-up">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-icon">🧹</div>
+        <h3>Panel Cleaning</h3>
+        <p>Dirty panels can lose up to 30% efficiency. We use professional-grade equipment for a streak-free result that maximises your output.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-icon">🔌</div>
+        <h3>Rewiring & Electrical</h3>
+        <p>From fault-finding to full rewires, our licensed electricians handle all DC and AC solar electrical work safely and compliantly.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-icon">🏠</div>
+        <h3>Roof Penetration Sealing</h3>
+        <p>Poorly sealed roof penetrations lead to leaks and corrosion. We inspect and seal all entry points to protect your roof and system.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-icon">📡</div>
+        <h3>Remote Inverter Monitoring</h3>
+        <p>We connect and monitor your inverter remotely, catching faults and underperformance before they cost you money.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-icon">🔋</div>
+        <h3>Battery Upgrades</h3>
+        <p>Add battery storage to your existing system and take control of your energy around the clock — even when the sun goes down.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-icon">⏱️</div>
+        <h3>Load Management & Hot Water</h3>
+        <p>Smart load management devices and hot water timers help you use your solar generation when it's available, not when it's expensive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMS -->
+<section class="forms-section" id="book">
+  <div class="forms-container">
+    <div class="forms-header fade-up">
+      <div class="section-tag" style="justify-content:center;">Book Online</div>
+      <h2>Ready to Get <em>Started?</em></h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center;">Book a solar inspection or request a custom quote below. We'll be in touch within one business day.</p>
+    </div>
+    <div class="forms-grid" id="quote">
+
+      <!-- INSPECTION FORM -->
+      <div class="form-card fade-up">
+        <h3>Book an Inspection</h3>
+        <p class="form-desc">We'll visit your property and assess your solar system's condition, performance, and any maintenance required.</p>
+        <form id="inspectionForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" placeholder="04XX XXX XXX" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Property Address</label>
+            <input type="text" placeholder="123 Example Street, Maroochydore">
+          </div>
+          <div class="form-group">
+            <label>System Size (if known)</label>
+            <select>
+              <option value="">Select approximate size</option>
+              <option>Under 5kW</option>
+              <option>5kW – 10kW</option>
+              <option>10kW – 20kW</option>
+              <option>20kW+</option>
+              <option>Not sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Additional Notes</label>
+            <textarea rows="3" placeholder="Any issues you've noticed, age of system, etc."></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit">Book My Inspection →</button>
+          <div class="success-msg" id="inspSuccess">✓ Request received — we'll be in touch shortly.</div>
+        </form>
+      </div>
+
+      <!-- QUOTE FORM -->
+      <div class="form-card fade-up">
+        <h3>Request a Quote</h3>
+        <p class="form-desc">Tell us what you're looking for — cleaning, upgrade, battery, monitoring or anything else — and we'll put together a tailored quote.</p>
+        <form id="quoteForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" placeholder="04XX XXX XXX" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" placeholder="jane@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Property Address</label>
+            <input type="text" placeholder="123 Example Street, Noosa">
+          </div>
+          <div class="form-group">
+            <label>What are you interested in? *</label>
+            <select required>
+              <option value="">Select a service</option>
+              <option>Panel Cleaning</option>
+              <option>Rewiring / Electrical Work</option>
+              <option>Roof Penetration Sealing</option>
+              <option>Remote Inverter Monitoring</option>
+              <option>Battery Upgrade</option>
+              <option>Load Management / Hot Water Timer</option>
+              <option>Full System Upgrade</option>
+              <option>Multiple Services</option>
+              <option>Not Sure — Need Advice</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell Us More</label>
+            <textarea rows="3" placeholder="Describe what you're looking for, your system setup, any issues, etc."></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit">Request My Quote →</button>
+          <div class="success-msg" id="quoteSuccess">✓ Quote request received — we'll be in touch shortly.</div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="results-section">
+    <div class="results-header fade-up">
+      <div>
+        <div class="section-tag">Our Work</div>
+        <h2>Real <em>Results</em></h2>
+      </div>
+      <p class="section-sub" style="max-width:320px;">Before and after — see the difference professional solar management makes.</p>
+    </div>
+    <div class="results-grid fade-up">
+      <div class="result-card">
+        <div class="result-img">Before / After Photo</div>
+        <div class="result-info">
+          <h4>Panel Clean — Noosa Heads</h4>
+          <p>10kW system restored from heavy soiling. Output increased by 22% post-clean.</p>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-img">Before / After Photo</div>
+        <div class="result-info">
+          <h4>Battery Upgrade — Maroochydore</h4>
+          <p>13.5kWh battery added to existing 6.6kW system. Customer now 90% grid-independent.</p>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-img">Before / After Photo</div>
+        <div class="result-info">
+          <h4>Rewire & Seal — Caloundra</h4>
+          <p>Faulty DC isolator replaced, 4 roof penetrations resealed. System back to full output.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="fade-up" id="reviews">
+      <div class="section-tag" style="margin-bottom:1rem;">Customer Reviews</div>
+      <h2 style="margin-bottom:2.5rem;">What Our <em>Clients Say</em></h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Had my panels cleaned and inverter checked — the difference was immediate. My app showed a big jump in output the very next day. Highly recommend Fraser and the team."</p>
+          <div class="review-author">
+            <div class="review-avatar">M</div>
+            <div>
+              <div class="review-name">Michael T.</div>
+              <div class="review-loc">Noosa Heads</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Professional, on time, and explained everything clearly. Got a battery added to our existing system and now we barely touch the grid. Worth every cent."</p>
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div>
+              <div class="review-name">Sarah K.</div>
+              <div class="review-loc">Maroochydore</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Found a fault with our wiring that our original installer missed. Fixed it quickly and set us up with remote monitoring. Really glad we found Solar Management."</p>
+          <div class="review-author">
+            <div class="review-avatar">D</div>
+            <div>
+              <div class="review-name">Dave & Lisa R.</div>
+              <div class="review-loc">Caloundra</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-container">
+    <div class="fade-up">
+      <div class="section-tag">Get In Touch</div>
+      <h2>Talk to <em>Fraser</em></h2>
+      <div class="gold-divider"></div>
+      <p class="section-sub">Have a question or want to discuss your solar system? Reach out directly to our maintenance manager.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">👤</div>
+          <div class="contact-item-text">
+            <label>Maintenance Manager</label>
+            <p>Fraser Schulz</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <label>Phone</label>
+            <p><a href="tel:0410213727">0410 213 727</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <label>Email</label>
+            <p><a href="mailto:fraser@solarmanagement.com.au">fraser@solarmanagement.com.au</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="service-area-bar">
+        <label>Service Area</label>
+        <p>Rainbow Beach → Sunshine Coast → Brisbane and surrounds</p>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div style="background:var(--black);border:1px solid var(--border);height:100%;min-height:400px;display:flex;align-items:center;justify-content:center;color:var(--white-dim);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--black-soft),var(--black));"></div>
+        <div style="position:relative;text-align:center;">
+          <div style="font-size:3rem;margin-bottom:1rem;opacity:0.3;">🗺</div>
+          <p>Map placeholder<br><span style="color:var(--gold);font-size:0.7rem;">Rainbow Beach → Brisbane</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Solar Management</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Solar Management. Sunshine Coast, QLD.</p>
+</footer>
+
+<script>
+  // Scroll animations
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Form submissions
+  document.getElementById('inspectionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('inspSuccess').style.display = 'block';
+    this.reset();
+  });
+
+  document.getElementById('quoteForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('quoteSuccess').style.display = 'block';
+    this.reset();
+  });
+
+  // Nav active state
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.borderBottomColor = window.scrollY > 50 ? 'rgba(201,168,76,0.3)' : 'rgba(201,168,76,0.2)';
+  });
+</script>
+</body>
+</html>
